@@ -11,7 +11,7 @@ RUN apk --no-cache add ca-certificates
 
 COPY --from=builder /go/src/hellofly/hellofly /hellofly
 RUN mkdir /templates
-COPY --from=builder /go/src/hellofly/templates/hellofly.tmpl /templates
+COPY --from=builder /go/src/hellofly/templates/*.tmpl /templates/
 EXPOSE 8080
 
 CMD ["/hellofly"]

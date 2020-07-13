@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+  <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Contact Form</title>
+      <link href="https://fonts.googleapis.com/css?family=Roboto:100" rel="stylesheet">
+      <style>
+         body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: linear-gradient(to top left, #42A5F5, #0D47A1);
+            background-repeat: cover;
+            color: white;
+         }
+
+         .formContainer {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            border-radius: 8px 8px;
+            height: 80vh;
+            width: 50%;
+            font-family: 'Roboto', sans-serif;
+         }
+
+         .formContainer h1 {
+            padding: 2vh;
+         }
+         .formContainer form {
+            width: 100%;
+            align-items: center;
+         }
+
+         input {
+            margin-bottom: 5vh;
+            border-right: none;
+            border-top: none;
+            border-left: none;
+            background-color:transparent;
+            outline: none;
+            color: white;
+            caret-color: white;
+            width: 100%;
+         }
+
+         input[type=submit] {
+            background: rgba(255,255,255,.2);
+            width: 100%;
+            padding: 2vh;
+            border: none;
+            cursor: pointer;
+            border-radius: 4px 4px;
+         }
+
+         input[type=text]::placeholder {
+            text-align: center;
+            color: white;
+            font-family: 'Roboto', sans-serif;
+         }
+
+      </style>
+  </head>
+  <body id="body">
+      <div class="formContainer">
+         <h1>Request a call</h1>
+         <form name="callForm" action="/calls" method="post">
+            <input width="100%" type="text" name="name" placeholder="Name" onfocus="this.placeholder=''" onblur="this.placeholder='Name'" ><br>
+            <input type="text" name="email" placeholder="you@email.com" onfocus="this.placeholder=''" onblur="this.placeholder='you@email.com'" ><br>
+            <input type="text" name="phone" placeholder="123 456 7890" onfocus="this.placeholder=''" onblur="this.placeholder='123 456 7890'"><br>      
+            <br>
+            <input type="submit" value="Call Me">
+         </form>
+      </div>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/additional-methods.min.js"></script>
+
+      <script>
+         // Wait for the DOM to be ready
+         $(function() {
+            // Initialize form validation on the registration form.
+            // It has the name attribute "registration"
+            $("form[name='callForm']").validate({
+               // Specify validation rules
+               rules: {
+                  // The key name on the left side is the name attribute
+                  // of an input field. Validation rules are defined
+                  // on the right side
+                  name: "required",
+                  phone: {
+                     required: true,
+                     phoneUS: true
+                  },
+                  email: {
+                     required: false,
+                     // Specify that email should be validated
+                     // by the built-in "email" rule
+                     email: true
+                  }
+               },
+               // Specify validation error messages
+               messages: {
+                  name: "Please enter your name",
+                  phone: "Please enter your phone number",
+                  email: "Please enter a valid email address"
+               },
+               // Make sure the form is submitted to the destination defined
+               // in the "action" attribute of the form when valid
+               submitHandler: function(form) {
+                  form.submit();
+               }
+            });
+         });
+      </script>
+</body>
+</html>

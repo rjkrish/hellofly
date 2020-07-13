@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Queue</title>
+    <link href="https://fonts.googleapis.com/css?family=Roboto:100" rel="stylesheet">
+  
+    <style>
+        
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(to top left, #42A5F5, #0D47A1);
+            background-repeat: cover;
+            color: white;
+        }
+        .queueContainer {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          flex-direction: column;
+          border-radius: 8px 8px;
+          font-family: 'Roboto', sans-serif;
+          width: 70%;
+        }
+
+        .queueContainer h1 {
+          padding: 2vh;
+          align-items: center;
+        }
+        
+        .shadow-1:before {
+          content: "";
+          position: absolute;
+          left: 0;
+          right: 0;
+          top: 0;
+          bottom: 0;
+          width: inherit;
+          height: inherit;
+          z-index: -2;
+          box-sizing: border-box;
+          box-shadow: 0 5px 7px 0 rgba(0, 0, 0, 0.7);
+        }
+
+        .shadow-1:after {
+          content: "";
+          position: absolute;
+          left: 0;
+          right: 0;
+          top: 0;
+          bottom: 0;
+          width: inherit;
+          height: inherit;
+          z-index: -2;
+          box-sizing: border-box;
+          box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.3);
+        }
+
+        .shadow-2:before {
+          content: "";
+          position: absolute;
+          left: 0;
+          right: 0;
+          top: 0;
+          bottom: 0;
+          width: inherit;
+          height: inherit;
+          z-index: -2;
+          box-sizing: border-box;
+          box-shadow: 0 5px 7px 0 rgba(0, 0, 0, 0.7);
+        }
+
+        .shadow-2:after {
+          content: "";
+          position: absolute;
+          left: 0;
+          right: 0;
+          top: 0;
+          bottom: 0;
+          width: inherit;
+          height: inherit;
+          z-index: -2;
+          box-sizing: border-box;
+          box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.3);
+        }
+
+        .card {
+          position: relative;
+          height: 100px;
+          background: linear-gradient(to top left, #42A5F5, #0D47A1);;
+          margin: 20px 40px;
+          transition: 0.4s all;
+          font-family: 'Roboto', sans-serif;
+        }
+
+        .card.open {
+          height: 200px;
+          background: linear-gradient(to top left, #42D5FF, #0D47A1);;
+        }
+
+        .card-detail {
+          color: white;
+          padding: 5px;
+        }
+
+        .card-detail-open {
+          color: black;
+          padding: 5px;
+        }
+
+        @media only screen and (min-width: 600px) {
+          .card {
+            width:500px;
+            margin-top:20px;
+            margin-bottom:20px;
+            margin-left:auto;
+            margin-right:auto;
+          }
+        }
+
+        @media only screen and (max-device-width: 800px) and (orientation: portrait) {
+          .card {
+            margin: 12px 10px;
+          }
+        }
+
+        input[type=submit] {
+            color: white;
+            caret-color: white; 
+            background: rgba(255,255,255,.1);
+            width: 20%;
+            border: none;
+            cursor: pointer;
+            border-radius: 4px 4px;
+        }
+    </style>
+  </head>
+  <body id="body">
+  <div class="queueContainer">
+    <h1>Call Queue</h1>
+    <div class="cards">
+      {{range .Q}}
+      <div class="card shadow-1">
+          <div class="card-detail">
+            Name: <strong>{{.Name}}</strong><br/>
+            Phone: {{.Phone}}
+            {{if .Email}}
+            <br/>
+            Email: {{.Email}}
+            {{end}}
+            <br/>
+            <br/>
+            {{if .Completed}}
+              Completed
+            {{else}}
+              <div class="comp">
+                <form action="/calls/{{.ID}}/complete/" method="post"> 
+                  <input type="submit" value="Complete"/>
+                </form>
+              </div>
+            {{end}}
+          </div>
+      </div>
+      {{end}}
+    </div>
+  </div>  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script>
+    $('.card').on('click', function() {
+      if ($(this).hasClass('open')) {
+        $('.card').removeClass('open');
+        $('.card').removeClass('shadow-2');
+        console.log('click')
+        return false;
+      } else {
+        $(this).addClass('open');
+        $(this).addClass('shadow-2');
+      }
+    });
+  </script>
+</body>
+
+</html>
